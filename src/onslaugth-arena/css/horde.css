@@ -1,0 +1,42 @@
+@font-face {
+	font-family: 'MedievalSharp';
+	font-style: normal;
+	font-weight: normal;
+	src: local('MedievalSharp'), url('../font/MedievalSharp.ttf') format('woff');
+}
+
+html {
+	background: #000 url(../img/frame_background.png);
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+#stage {
+  position: relative;
+}
+
+canvas {
+	border: solid 1px #231f20;
+	position: absolute;
+	background: #000;
+	color: #f1f1f2;
+}
+
+.fallback {
+	background: #000;
+	color: #f1f1f2;
+	font-family: Tahoma, Arial, Sans;
+	text-align: center;
+}
+
+.fallback p {
+	display: block;
+}
+
+.fallback a {
+	color: #7c51a1;
+	font-weight: bold;
+}
