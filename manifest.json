@@ -1,0 +1,22 @@
+{  "name": "Videojuego UCP (interacción web)",
+    "short_name": "V-UCP",  "theme_color": "#000000",
+    "background_color": "#000000",
+    "display": "minimal-ui",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/index.html",
+    "icons": [
+        {
+          "src": "img/iconos/chrome-extensionmanagementpage-48-48.png",
+          "sizes": "48x48"
+        },
+        {
+          "src": "img/iconos/chrome-favicon-16-16.png",
+          "sizes": "16x16"
+        },
+        {
+          "src": "img/iconos/chrome-installprocess-128-128.png",
+          "sizes": "128x128"
+        }
+      ]
+}

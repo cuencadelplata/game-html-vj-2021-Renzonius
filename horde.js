@@ -924,6 +924,7 @@ horde.setInterval = function(e, t, i) {
             for (var r = this.waveHack ? 1 : 2, d = r; o >= d; ++d) this.spawnWaveExtras(d);
             this.waveHack = !1
           } else this.spawnWaveExtras(o);
+          //manejo de las oleadas
           var p = "Wave " + o,
             c = "normal_battle_music";
           o > 1 && (this.putData("checkpoint_wave", this.currentWaveId), this.putData("checkpoint_hero", JSON.stringify(this.getPlayerObject()))), this.waves[this.currentWaveId].bossWave && (p = "Boss: " + this.waves[this.currentWaveId].bossName + "!", c = "final_battle_music"), this.currentMusic !== c && (horde.sound.stop(this.currentMusic), this.currentMusic = c, horde.sound.play(this.currentMusic)), this.initSpawnWave(this.waves[this.currentWaveId]), this.waveText.string = p, this.waveText.alpha = 0, this.waveText.size = 1, this.waveText.state = "init";
@@ -955,6 +956,8 @@ horde.setInterval = function(e, t, i) {
       }
     }, b.openGates = function() {
       "up" !== this.gateState && (this.gateDirection = "up", horde.sound.play("gate_opens"))
+      //Manejo de las oleadas
+      // this.state = "game_over"
     }, b.closeGates = function() {
       "down" !== this.gateState && (this.gateDirection = "down", horde.sound.play("gate_closes"))
     }, b.updateFauxGates = function(e) {
@@ -1111,18 +1114,20 @@ horde.setInterval = function(e, t, i) {
         v = Math.floor(y / 1e3 * e);
       this.scoreCount < b ? (this.scoreCount += v, this.scoreCount > b && (this.scoreCount = b)) : this.scoreCount > b && (this.scoreCount -= v, this.scoreCount < b && (this.scoreCount = b)), Math.abs(g.wounds - this.woundsTo) <= 1 && (this.woundsTo = g.wounds)
     }, b.dealDamage = function(e, t) {
-      if ("monster" === e.role && "projectile" === t.role) return !1;
+      if ("monster" === e.role && "projectile" === t.role)return !1;
       if (e.execute("onObjectCollide", [t, this]), "projectile" == e.role && "trap" == t.role || "trap" == e.role && "projectile" == t.role) return !1;
       var i = t.execute("onThreat", [e, this]);
       if (t.hasState(horde.Object.states.INVINCIBLE) || t.hitPoints === 1 / 0 || i === !0) return "projectile" === e.role && e.hitPoints !== 1 / 0 && ("magic" !== t.damageType && "physical" !== t.damageType || "physical" !== e.damageType ? e.die() : (e.reverseDirection(), e.deflect(), horde.sound.play("immunity"))), !1;
-      if (e.hitPoints !== 1 / 0 && "projectile" === e.role && "projectile" === t.role && "physical" === e.damageType && "physical" === t.damageType) return e.piercing === !1 && (e.reverseDirection(), e.deflect()), t.piercing === !1 && (t.reverseDirection(), t.deflect()), !1;
+      //Choque de proyectiles del jugador contra proyectiles enemigos
+      if (e.hitPoints !== 1 / 0 && "projectile" === e.role && "projectile" === t.role && "physical" === e.damageType && "physical" === t.damageType) return e.piercing === !1 && (e.reverseDirection(), e.deflect()),  t.piercing === !1 && (t.reverseDirection(), t.deflect()), !1;
       e.execute("onDamage", [t, this]);
       var s = e;
       if (null !== s.ownerId) {
         var a = this.objects[s.ownerId];
         a && (s = a)
       }
-      "projectile" === e.role && s.shotsLanded++, t.wound(e.damage) ? (s.gold += t.worth, s.kills++, t.execute("onKilled", [e, this]), t.lootTable.length > 0 && this.spawnLoot(t), "projectile" === e.role && e.piercing === !1 && e.hitPoints !== 1 / 0 && e.die()) : (e.damage > 0 && "hero" === t.role && t.addState(horde.Object.states.INVINCIBLE, 2500), "projectile" === e.role && e.hitPoints !== 1 / 0 && e.die())
+      //Control de choque de proyectiles
+       "projectile" === e.role && s.shotsLanded++, t.wound(e.damage) ? (s.gold += t.worth, s.kills++, t.execute("onKilled", [e, this]), t.lootTable.length > 0 && this.spawnLoot(t), "projectile" === e.role && e.piercing === !1 && e.hitPoints !== 1 / 0 && e.die()) : (e.damage > 0 && "hero" === t.role && t.addState(horde.Object.states.INVINCIBLE, 2500), "projectile" === e.role && e.hitPoints !== 1 / 0 && e.die())
     }, b.updateTargetReticle = function() {
       this.targetReticle.moving = !1;
       var e = new horde.Vector2(this.mouse.mouseX, this.mouse.mouseY),
@@ -1474,6 +1479,7 @@ horde.setInterval = function(e, t, i) {
     }, b.getAccuracy = function(e) {
       return 0 === e.shotsFired ? 0 : Math.round(e.shotsLanded / e.shotsFired * 100)
     }, b.drawTutorial = function(e) {
+      //Submenu al inicio del nuevo juego
       if (!this.paused) {
         e.save(), e.globalAlpha = d, e.fillRect(0, this.tutorialY, this.view.width, l), e.globalAlpha = 1, e.font = "Bold 22px MedievalSharp", e.textAlign = "center";
         var t = ["MOVE with the WASD keys.", "ATTACK with the ARROW keys.", "Or use the MOUSE to AIM with the target reticle.", "ATTACK by HOLDING DOWN the LEFT MOUSE BUTTON.", "KILL MONSTERS and COLLECT GOLD to raise your score!"];
@@ -1504,6 +1510,7 @@ horde.setInterval = function(e, t, i) {
           e.globalAlpha = s, e.drawImage(this.images.getImage(t.spriteSheet), i.x, t.spriteYOverlay + 1, t.size.width - 1, t.size.height - 1, -(t.size.width / 2), -(t.size.height / 2), t.size.width, t.size.height), e.restore()
         }
         if ("monster" === t.role && t.badass && t.hasState(horde.Object.states.HURTING) && this.drawImageOverlay(e, this.images.getImage(t.spriteSheet), i.x, i.y + 1, t.size.width - 1, t.size.height - 1, -(t.size.width / 2), -(t.size.height / 2), t.size.width, t.size.height, "rgba(186, 51, 35, 0.6)"), this.isBadassWeapon(t) && t.glow && this.drawImageOverlay(e, this.images.getImage(t.spriteSheet), i.x, i.y + 1, t.size.width - 1, t.size.height - 1, -(t.size.width / 2), -(t.size.height / 2), t.size.width, t.size.height, "rgba(255, 247, 143, " + t.glow.alpha + ")"), this.debug && "monster" === t.role || t.badass && !t.hasState(horde.Object.states.DYING)) {
+          //Espacio del Ciclope
           var a = t.size.width - 2,
             o = 8,
             h = a - Math.round(a * t.wounds / t.hitPoints);
@@ -1702,7 +1709,6 @@ horde.setInterval = function(e, t, i) {
             break;
           case "monster":
             this.wound(this.hitPoints)
-            //Zona de magia
         }
         this.killSwitch = !0
       }
