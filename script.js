@@ -57,5 +57,5 @@ window.addEventListener('appinstalled', (event) => {
 
 // ->Registro del Service Worcker<-
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js');
+    navigator.serviceWorker.register('sw.js');
 }
