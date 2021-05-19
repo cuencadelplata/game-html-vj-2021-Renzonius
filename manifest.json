@@ -4,7 +4,7 @@
     "display": "minimal-ui",
     "orientation": "portrait",
     "scope": "/",
-    "start_url": "/index.html",
+    "start_url": "index.html",
     "icons": [
         {
           "src": "img/iconos/chrome-extensionmanagementpage-48-48.png",
