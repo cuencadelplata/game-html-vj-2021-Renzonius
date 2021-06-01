@@ -91,14 +91,14 @@ const recursosParaCachear = [
 //   self.skipWaiting();
 // });
 
-self.addEventListener('install', function(event) {
-  console.log('[ServiceWorker] Install');
-  event.waitUntil( 
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(recursosParaCachear)
-  }));
-  
-  self.skipWaiting();
+self.addEventListener('install', (event) => {
+  console.log('[Service Worker] Install');
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+          console.log('[Servicio Worker] Almacena todo en caché: contenido e intérprete de la aplicación');
+      return cache.addAll(recursosParaCachear);
+    })
+  );
 });
 
 self.addEventListener('activate', (event) => {
