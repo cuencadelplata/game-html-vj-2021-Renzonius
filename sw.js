@@ -94,10 +94,9 @@ const recursosParaCachear = [
 self.addEventListener('install', function(event) {
   console.log('[ServiceWorker] Install');
   event.waitUntil( 
-    caches.open(CACHE_NAME)
-      .then(cache => {
+    caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(recursosParaCachear)
-  })());
+  }));
   
   self.skipWaiting();
 });
