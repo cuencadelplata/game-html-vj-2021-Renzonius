@@ -7,6 +7,15 @@ window.addEventListener('appinstalled', (event) => {
     window.deferredPrompt = null;
 });
 
+// ->Registro del Service Worcker<-
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+    // console.log('👍', 'listo SW');
+}
+else{
+    console.log('Fallo SW');   
+}
+
   /**
    * Warn the page must be served over HTTPS
    * The `beforeinstallprompt` event won't fire if the page is served over HTTP.
@@ -55,7 +64,3 @@ window.addEventListener('appinstalled', (event) => {
     window.deferredPrompt = null;
 });
 
-// ->Registro del Service Worcker<-
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
-}
