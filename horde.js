@@ -3708,6 +3708,7 @@ horde.setInterval = function(e, t, i) {
   };
   window.multiplayer.onmessage = function(event){
     console.log(event.data.players);
+    console.log("mostrando datos");
   };
   
 
