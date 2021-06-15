@@ -1075,10 +1075,10 @@ horde.setInterval = function(e, t, i) {
                   horde.sound.play("coins"); //Aca va la magia
                   var event = {
                     "game":"RenzoGame's",
-                    "event": "Sumar puntos",
-                    "value":r.coinAmount.toString()
+                    "player": window.playerID,
+                    "value":r.coinAmount
                   };
-                  window.socket.send(JSON.stringify(event));
+                  window.multiplayer.send(JSON.stringify(event));
                   var p = this.coinPickup;
                   if (p.amount = r.coinAmount, p.y = 0, p.alpha = 1, p.position = r.position.clone(), p.state = "on", this.isSpecialLoot(r.type))
                     for (var h in this.objects) "pickup_arrow" === this.objects[h].type && this.objects[h].die()
@@ -3694,11 +3694,20 @@ horde.setInterval = function(e, t, i) {
   function() {
     var e = new horde.Engine;
     e.run()
-  }()
-  url = "wss://ucp-games-2021.azurewebsites.net/ws",
-  window.socket = new WebSocket(url),
-  window.socket.onopen = function(event){
+  }();
+  // url = "wss://ucp-games-2021.azurewebsites.net/ws",
+  // window.socket = new WebSocket(url),
+  // window.socket.onopen = function(event){
+  //   console.log("conexion exitosa");
+  // };
+  url = "wss://ucp-games-2021.azurewebsites.net/multiplayer";
+  window.multiplayer = new WebSocket(url);
+  window.playerID = "Renzo";
+  window.multiplayer.onopen = function(event){
     console.log("conexion exitosa");
+  };
+  window.multiplayer.onmessage = function(event){
+    console.log(event.data.players);
   };
   
 
