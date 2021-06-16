@@ -3705,11 +3705,14 @@ horde.setInterval = function(e, t, i) {
   window.playerID = "Renzo";
   window.multiplayer.onopen = function(event){
     console.log("conexion exitosa");
+   
   };
+
   window.multiplayer.onmessage = function(event){
-    console.log(event.data.players);
-    console.log("mostrando datos");
+    var datos = JSON.parse(event.data);
+    console.log(datos.players);
   };
+  
   
 
   
