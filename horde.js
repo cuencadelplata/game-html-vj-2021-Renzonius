@@ -3702,7 +3702,14 @@ horde.setInterval = function(e, t, i) {
   // };
   url = "wss://ucp-games-2021.azurewebsites.net/multiplayer";
   window.multiplayer = new WebSocket(url);
-  window.playerID = "Renzo";
+  window.playerID = localStorage.getItem('playerID'); 
+  if (typeof window.playerID !== 'undefined' || window.playerID == null)
+  { 
+    var playerIDValue = "player-"+ parseInt((Math.random() * (100000 - 1) + 1));
+    localStorage.setItem('playerID') = playerIDValue; 
+    window.playerID = playerIDValue;
+  };
+
   window.multiplayer.onopen = function(event){
     console.log("conexion exitosa");
    
