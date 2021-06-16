@@ -81,42 +81,42 @@ horde.setInterval = function(e, t, i) {
     toVector: function(e) {
       switch (0 > e && (e += 8), e > 7 && (e -= 8), e) {
         case horde.directions.UP:
-          var event = {
-            "game":"RenzoGame's",
-            "event": "Movimiento",
-            "value":"Arriba"
-          };
-          window.socket.send(JSON.stringify(event));
+          // var event = {
+          //   "game":"RenzoGame's",
+          //   "event": "Movimiento",
+          //   "value":"Arriba"
+          // };
+          // window.socket.send(JSON.stringify(event));
           return new horde.Vector2(0, -1);
         case horde.directions.UP_RIGHT:
           return new horde.Vector2(1, -1);
         case horde.directions.RIGHT:
-          var event = {
-            "game":"RenzoGame's",
-            "event": "Movimiento",
-            "value":"Derecha"
-          };
-          window.socket.send(JSON.stringify(event));
+          // var event = {
+          //   "game":"RenzoGame's",
+          //   "event": "Movimiento",
+          //   "value":"Derecha"
+          // };
+          // window.socket.send(JSON.stringify(event));
           return new horde.Vector2(1, 0);
         case horde.directions.DOWN_RIGHT:
           return new horde.Vector2(1, 1);
         case horde.directions.DOWN:
-          var event = {
-            "game":"RenzoGame's",
-            "event": "Movimiento",
-            "value":"Abajo"
-          };
-          window.socket.send(JSON.stringify(event));
+          // var event = {
+          //   "game":"RenzoGame's",
+          //   "event": "Movimiento",
+          //   "value":"Abajo"
+          // };
+          // window.socket.send(JSON.stringify(event));
           return new horde.Vector2(0, 1);
         case horde.directions.DOWN_LEFT:
           return new horde.Vector2(-1, 1);
         case horde.directions.LEFT:
-          var event = {
-            "game":"RenzoGame's",
-            "event": "Movimiento",
-            "value":"Izquierda"
-          };
-          window.socket.send(JSON.stringify(event));
+          // var event = {
+          //   "game":"RenzoGame's",
+          //   "event": "Movimiento",
+          //   "value":"Izquierda"
+          // };
+          // window.socket.send(JSON.stringify(event));
           return new horde.Vector2(-1, 0);
         case horde.directions.UP_LEFT:
           return new horde.Vector2(-1, -1)
